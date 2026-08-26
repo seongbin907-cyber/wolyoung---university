@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<meta name="theme-color" content="#0d0221">
+<meta name="description" content="월영대학교 — 요괴와 인간이 공존하는 대학 세계관 아카이브">
+<title>월영대학교 | Wolyeong University</title>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&family=Orbitron:wght@500;700&display=swap');
+  :root {
+    --bg: #0d0221; --bg2: #1a0a2e; --card: #1e1035;
+    --neon-pink: #ff2d95; --neon-cyan: #00f0ff; --neon-purple: #b14eff; --neon-lime: #b8ff3c;
+    --text: #f5f0ff; --muted: #a89bc4;
+    --safe-top: env(safe-area-inset-top, 0px); --safe-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: 'Noto Sans KR', -apple-system, sans-serif;
+    background: var(--bg);
+    background-image:
+      radial-gradient(ellipse at 15% 0%, rgba(177,78,255,0.2) 0%, transparent 45%),
+      radial-gradient(ellipse at 85% 80%, rgba(255,45,149,0.1) 0%, transparent 40%);
+    color: var(--text); line-height: 1.7; min-height: 100vh; overflow-x: hidden;
+  }
+
+  /* HEADER */
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(13,2,33,0.88); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(0,240,255,0.2);
+    padding: 0.65rem 1.2rem; padding-top: calc(0.65rem + var(--safe-top));
+    display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;
+  }
+  .logo {
+    font-family: 'Orbitron', sans-serif; font-size: 1.05rem; font-weight: 700;
+    background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    text-decoration: none; cursor: pointer;
+  }
+  .nav-desktop { display: none; gap: 0.15rem; align-items: center; }
+  .nav-desktop a {
+    color: var(--muted); text-decoration: none; font-size: 0.84rem; cursor: pointer;
+    padding: 0.4rem 0.7rem; border-radius: 8px; transition: all 0.2s;
+  }
+  .nav-desktop a:hover { color: var(--neon-cyan); background: rgba(0,240,255,0.08); }
+  .menu-btn {
+    display: flex; flex-direction: column; justify-content: center; gap: 5px;
+    width: 40px; height: 40px; background: none; border: none; cursor: pointer; padding: 8px;
+  }
+  .menu-btn span {
+    display: block; width: 22px; height: 2.5px; border-radius: 2px; transition: all 0.3s;
+    background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
+  }
+  .menu-btn.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+  .menu-btn.open span:nth-child(2) { opacity: 0; }
+  .menu-btn.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+  .nav-mobile {
+    display: none; position: fixed; top: calc(54px + var(--safe-top)); left: 0; right: 0;
+    background: rgba(13,2,33,0.97); backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255,45,149,0.25); padding: 0.8rem 1rem; z-index: 99;
+    flex-direction: column; gap: 0.15rem;
+  }
+  .nav-mobile.show { display: flex; }
+  .nav-mobile a {
+    color: var(--muted); text-decoration: none; font-size: 1.02rem; padding: 0.75rem 1rem;
+    border-radius: 10px; cursor: pointer;
+  }
+  .nav-mobile a:active { background: rgba(0,240,255,0.1); color: var(--neon-cyan); }
+
+  /* HERO - homepage style */
+  .hero {
+    margin-top: calc(54px + var(--safe-top));
+    min-height: calc(100vh - 54px); min-height: calc(100dvh - 54px);
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center; padding: 2.5rem 1.2rem 3rem; position: relative;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 40%, rgba(177,78,255,0.22) 0%, transparent 55%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block; font-size: 0.75rem; letter-spacing: 0.12em;
+    color: var(--neon-cyan); border: 1px solid rgba(0,240,255,0.4);
+    padding: 0.3rem 0.9rem; border-radius: 999px; margin-bottom: 1.2rem;
+    background: rgba(0,240,255,0.08);
+  }
+  .hero h1 {
+    font-family: 'Orbitron', sans-serif; font-size: clamp(2.2rem, 9vw, 4rem); font-weight: 700;
+    background: linear-gradient(135deg, #fff 10%, var(--neon-cyan) 40%, var(--neon-purple) 70%, var(--neon-pink) 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 0 30px rgba(177,78,255,0.4));
+    margin-bottom: 0.6rem; line-height: 1.15;
+  }
+  .hero .sub {
+    font-size: clamp(1rem, 3.5vw, 1.25rem); color: var(--neon-lime);
+    margin-bottom: 1.2rem; font-weight: 500;
+  }
+  .hero p {
+    max-width: 520px; margin: 0 auto 1.8rem; color: var(--muted);
+    font-size: clamp(0.9rem, 3vw, 1.05rem);
+  }
+  .hero-btns { display: flex; flex-wrap: wrap; gap: 0.7rem; justify-content: center; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 0.75rem 1.4rem; border-radius: 12px; font-size: 0.92rem; font-weight: 600;
+    cursor: pointer; border: none; text-decoration: none; transition: all 0.25s;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+    color: #0d0221; box-shadow: 0 4px 20px rgba(0,240,255,0.3);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 28px rgba(0,240,255,0.45); }
+  .btn-ghost {
+    background: transparent; color: var(--text);
+    border: 1px solid rgba(255,255,255,0.25);
+  }
+  .btn-ghost:hover { border-color: var(--neon-pink); color: var(--neon-pink); }
+
+  /* SECTIONS */
+  section { max-width: 1100px; margin: 0 auto; padding: 3rem 1.1rem; }
+  .sec-label {
+    font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--neon-cyan); margin-bottom: 0.4rem;
+  }
+  section h2 {
+    font-family: 'Orbitron', sans-serif; font-size: clamp(1.3rem, 4.5vw, 1.7rem);
+    color: var(--text); margin-bottom: 0.5rem;
+  }
+  section h2 span {
+    background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .sec-desc { color: var(--muted); font-size: 0.95rem; margin-bottom: 1.5rem; max-width: 560px; }
+
+  /* Feature strip */
+  .feature-strip {
+    display: grid; grid-template-columns: 1fr; gap: 0.8rem; margin-top: 1rem;
+  }
+  .feature-card {
+    background: var(--card); border: 1px solid rgba(177,78,255,0.25);
+    border-radius: 14px; padding: 1.25rem 1.2rem;
+    transition: border-color 0.25s, transform 0.25s;
+  }
+  .feature-card:hover { border-color: var(--neon-cyan); transform: translateY(-3px); }
+  .feature-card .icon { font-size: 1.5rem; margin-bottom: 0.4rem; }
+  .feature-card h3 { color: var(--neon-pink); font-size: 1rem; margin-bottom: 0.35rem; }
+  .feature-card p { color: var(--muted); font-size: 0.88rem; }
+
+  /* MAP */
+  .map-wrap { display: flex; flex-direction: column; gap: 1rem; }
+
+  .map-img-wrap {
+    position: relative;
+    background: #0a0618;
+    border: 2px solid rgba(0,240,255,0.28);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(0,240,255,0.1);
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .map-img-wrap img {
+    width: 100%;
+    height: auto;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
+  }
+
+  .map-hotspot {
+    position: absolute;
+    z-index: 10;
+    width: 34px;
+    height: 34px;
+    transform: translate(-50%, -50%);
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    box-shadow: none;
+    color: transparent;
+    cursor: pointer;
+    opacity: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+    transition: none;
+  }
+
+  /* 지도에 인쇄된 번호 위에 투명하게 겹쳐지는 클릭 레이어 */
+  .map-hotspot:hover,
+  .map-hotspot.near,
+  .map-hotspot.active {
+    opacity: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    transform: translate(-50%, -50%);
+  }
+
+  .map-hotspot span {
+    display: block;
+    width: 100%;
+    height: 100%;
+    font-size: 0;
+  }
+
+  /* 커서 주변 설명 */
+  .map-floating-info {
+    position: absolute;
+    z-index: 20;
+    min-width: 190px;
+    max-width: 280px;
+    padding: 0.75rem 0.9rem;
+    background: rgba(13,2,33,0.93);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(0,240,255,0.45);
+    border-radius: 10px;
+    box-shadow: 0 0 25px rgba(0,240,255,0.18);
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.18s, transform 0.18s;
+  }
+
+  .map-floating-info.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .map-floating-info h4 {
+    color: var(--neon-cyan);
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .map-floating-info p {
+    color: var(--muted);
+    font-size: 0.78rem;
+    line-height: 1.55;
+  }
+
+  .map-hint {
+    position: absolute;
+    z-index: 25;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0.7rem 1rem;
+    border: 1px solid rgba(0,240,255,0.35);
+    border-radius: 999px;
+    background: rgba(13,2,33,0.78);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--neon-cyan);
+    font-size: 0.78rem;
+    white-space: nowrap;
+    pointer-events: none;
+    transition: opacity 0.45s;
+  }
+
+  .map-hint.hide { opacity: 0; }
+
+  .loc-btns { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+  .loc-btn {
+    background: var(--card); border: 1px solid rgba(0,240,255,0.25); border-radius: 10px;
+    padding: 0.7rem 0.3rem; text-align: center; cursor: pointer; color: var(--text); font-size: 0.78rem;
+    transition: all 0.2s; -webkit-tap-highlight-color: transparent;
+  }
+  .loc-btn:hover, .loc-btn.active {
+    background: linear-gradient(135deg, rgba(0,240,255,0.15), rgba(255,45,149,0.15));
+    border-color: var(--neon-cyan); color: var(--neon-cyan);
+  }
+  .loc-btn .num {
+    display: inline-block; width: 1.3em; height: 1.3em; line-height: 1.3em;
+    background: rgba(255,45,149,0.22); border-radius: 50%; font-size: 0.7rem;
+    color: var(--neon-pink); margin-right: 0.12rem; text-align: center;
+  }
+  .map-detail {
+    background: var(--card); border: 1px solid rgba(184,255,60,0.3); border-radius: 12px;
+    padding: 1.15rem 1.25rem; display: none;
+  }
+  .map-detail.show { display: block; animation: fadeUp 0.3s ease; }
+  .map-detail h3 { font-family: 'Orbitron', sans-serif; color: var(--neon-lime); font-size: 1.05rem; margin-bottom: 0.35rem; }
+  .map-detail p { color: var(--muted); font-size: 0.9rem; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* CHARS */
+  .char-group-title {
+    font-size: 0.9rem; color: var(--neon-pink); margin: 1.4rem 0 0.75rem;
+    letter-spacing: 0.04em;
+  }
+  .char-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.85rem; }
+  .char-card {
+    background: var(--card); border: 1px solid rgba(177,78,255,0.28); border-radius: 14px;
+    overflow: hidden; cursor: pointer; transition: all 0.25s; -webkit-tap-highlight-color: transparent;
+  }
+  .char-card:active { transform: scale(0.97); }
+  .char-card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block; }
+  .char-info { padding: 0.65rem 0.45rem; text-align: center; }
+  .char-info .name {
+    font-family: 'Orbitron', 'Noto Serif KR', sans-serif; font-size: 0.88rem;
+    background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .char-info .species { font-size: 0.7rem; color: var(--muted); margin-top: 0.1rem; }
+  .char-info .grade {
+    display: inline-block; margin-top: 0.25rem; padding: 0.1rem 0.45rem;
+    background: rgba(255,45,149,0.18); border: 1px solid rgba(255,45,149,0.35);
+    border-radius: 20px; font-size: 0.65rem; color: var(--neon-pink);
+  }
+
+  /* Modal */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(5,0,15,0.92); z-index: 200;
+    display: none; align-items: flex-end; justify-content: center; padding-bottom: var(--safe-bottom);
+  }
+  .modal-overlay.show { display: flex; }
+  .modal {
+    background: var(--bg2); border: 2px solid rgba(0,240,255,0.32);
+    border-radius: 18px 18px 0 0; width: 100%; max-height: 92vh; max-height: 92dvh;
+    overflow-y: auto; -webkit-overflow-scrolling: touch; animation: slideUp 0.3s ease;
+  }
+  @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+  .modal-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.95rem 1.15rem; border-bottom: 1px solid rgba(255,45,149,0.25);
+    position: sticky; top: 0; background: var(--bg2); z-index: 1;
+  }
+  .modal-header h3 {
+    font-family: 'Orbitron', sans-serif;
+    background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
+    -webkit-background-clip: text; background-clip: text; color: transparent; font-size: 1.1rem;
+  }
+  .modal-close {
+    background: rgba(255,45,149,0.18); border: 1px solid rgba(255,45,149,0.4);
+    color: var(--neon-pink); font-size: 1.25rem; width: 34px; height: 34px;
+    border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  }
+  .modal-body { display: flex; flex-direction: column; gap: 1rem; padding: 1.15rem; }
+  .modal-img { width: 100%; max-width: 260px; margin: 0 auto; }
+  .modal-img img {
+    width: 100%; border-radius: 12px; border: 2px solid rgba(0,240,255,0.28);
+  }
+  .modal-desc .tag {
+    display: inline-block; background: rgba(177,78,255,0.18); border: 1px solid rgba(177,78,255,0.35);
+    color: var(--neon-purple); padding: 0.15rem 0.55rem; border-radius: 20px;
+    font-size: 0.72rem; margin: 0 0.15rem 0.35rem 0;
+  }
+  .modal-desc p { color: var(--muted); margin-top: 0.5rem; font-size: 0.9rem; }
+
+  /* Calendar / System / Factions */
+  .cal-wrap { overflow-x: auto; border-radius: 12px; }
+  .cal-table { width: 100%; min-width: 280px; border-collapse: collapse; background: var(--card); }
+  .cal-table th, .cal-table td {
+    padding: 0.7rem 0.9rem; text-align: left; border-bottom: 1px solid rgba(177,78,255,0.1); font-size: 0.86rem;
+  }
+  .cal-table th {
+    background: linear-gradient(90deg, rgba(0,240,255,0.1), rgba(255,45,149,0.1));
+    color: var(--neon-cyan); font-weight: 600;
+  }
+  .cal-table td { color: var(--muted); }
+  .cal-table td:first-child { color: var(--neon-lime); white-space: nowrap; }
+  .grade-list { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.55rem; }
+  .grade-badge {
+    padding: 0.28rem 0.65rem; border-radius: 8px; font-size: 0.75rem;
+    background: rgba(30,16,53,0.9); border: 1px solid rgba(0,240,255,0.25); color: var(--neon-cyan);
+  }
+  .system-section-title {
+    color: var(--neon-pink); font-size: 1rem; margin: 0 0 0.75rem;
+    letter-spacing: 0.02em;
+  }
+  .talent-list { display: grid; grid-template-columns: 1fr; gap: 0.85rem; }
+  .talent-card {
+    background: var(--card); border: 1px solid rgba(0,240,255,0.22); border-radius: 14px;
+    padding: 1rem 1.1rem; transition: all 0.2s;
+  }
+  .talent-card:hover { border-color: var(--neon-cyan); transform: translateY(-2px); }
+  .talent-card h3 { color: var(--neon-cyan); font-size: 0.95rem; margin-bottom: 0.35rem; }
+  .talent-card p { color: var(--muted); font-size: 0.84rem; line-height: 1.65; }
+  .student-filter { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0.65rem 0 0.9rem; }
+  .year-filter {
+    background: var(--card); border: 1px solid rgba(0,240,255,0.25); border-radius: 999px;
+    padding: 0.42rem 0.8rem; color: var(--muted); font-size: 0.75rem; cursor: pointer;
+    transition: all 0.2s; -webkit-tap-highlight-color: transparent;
+  }
+  .year-filter:hover, .year-filter.active {
+    color: var(--neon-cyan); border-color: var(--neon-cyan);
+    background: rgba(0,240,255,0.08);
+  }
+  .student-empty { color: var(--muted); font-size: 0.85rem; padding: 1rem 0; }
+  @media (min-width: 700px) { .talent-list { grid-template-columns: repeat(3, 1fr); } }
+  .faction-grid { display: grid; grid-template-columns: 1fr; gap: 0.9rem; }
+  .faction-card {
+    background: var(--card); border: 1px solid rgba(255,45,149,0.25); border-radius: 14px; padding: 1.2rem;
+  }
+  .faction-card h3 {
+    color: var(--neon-pink); margin-bottom: 0.5rem; font-family: 'Orbitron', sans-serif; font-size: 0.95rem;
+  }
+  .faction-card p { color: var(--muted); font-size: 0.88rem; }
+  .faction-card ul { margin-top: 0.5rem; padding-left: 1.05rem; color: var(--muted); font-size: 0.85rem; }
+
+  /* FOOTER homepage style */
+  footer {
+    margin-top: 2rem; padding: 2.5rem 1.2rem;
+    padding-bottom: calc(2.5rem + var(--safe-bottom));
+    background: rgba(10,2,25,0.9); border-top: 1px solid rgba(0,240,255,0.15);
+  }
+  .footer-inner { max-width: 1100px; margin: 0 auto; }
+  .footer-brand {
+    font-family: 'Orbitron', sans-serif; font-size: 1.1rem;
+    background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
+    -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 0.5rem;
+  }
+  .footer-desc { color: var(--muted); font-size: 0.85rem; margin-bottom: 1.2rem; max-width: 400px; }
+  .footer-links { display: flex; flex-wrap: wrap; gap: 0.8rem 1.2rem; margin-bottom: 1.5rem; }
+  .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; cursor: pointer; }
+  .footer-links a:hover { color: var(--neon-cyan); }
+  .footer-copy { color: rgba(168,155,196,0.6); font-size: 0.75rem; }
+
+  @media (max-width: 767px) {
+
+    .map-hotspot {
+      width: 40px;
+      height: 40px;
+    }
+
+    .map-floating-info {
+      min-width: 165px;
+      max-width: 235px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .menu-btn { display: none; }
+    .nav-desktop { display: flex; }
+    .nav-mobile { display: none !important; }
+    .logo { font-size: 1.2rem; }
+    header { padding: 0.7rem 1.8rem; }
+    .hero { padding: 3rem 2rem 4rem; }
+    section { padding: 3.5rem 1.5rem; }
+    .feature-strip { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .char-grid { grid-template-columns: repeat(3, 1fr); gap: 1.1rem; }
+    .loc-btns { grid-template-columns: repeat(5, 1fr); }
+    .loc-btn { font-size: 0.85rem; padding: 0.75rem 0.4rem; }
+    .faction-grid { grid-template-columns: repeat(2, 1fr); }
+    .modal-overlay { align-items: center; padding: 1.5rem; }
+    .modal { border-radius: 18px; max-width: 860px; max-height: 90vh; animation: fadeUp 0.3s ease; }
+    .modal-body { flex-direction: row; }
+    .modal-img { flex: 0 0 250px; max-width: 250px; margin: 0; }
+  }
+  @media (min-width: 1024px) {
+    .char-grid { grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+    .faction-grid { grid-template-columns: repeat(3, 1fr); }
+    .char-card:hover {
+      border-color: var(--neon-cyan); transform: translateY(-6px);
+      box-shadow: 0 12px 32px rgba(0,240,255,0.2);
+    }
+  }
+</style>
+</head>
+<body>
+<header>
+  <a class="logo" onclick="go('top')">월영대학교</a>
+  <nav class="nav-desktop">
+    <a onclick="go('about')">소개</a>
+    <a onclick="go('map')">캠퍼스</a>
+    <a onclick="go('chars')">인물</a>
+    <a onclick="go('calendar')">학사일정</a>
+    <a onclick="go('system')">등급·재능</a>
+    <a onclick="go('evaluation')">평가체계</a>
+    <a onclick="go('factions')">세력</a>
+  </nav>
+  <button class="menu-btn" id="menuBtn" onclick="toggleMenu()" aria-label="메뉴"><span></span><span></span><span></span></button>
+</header>
+<nav class="nav-mobile" id="navMobile">
+  <a onclick="go('about')">소개</a>
+  <a onclick="go('map')">캠퍼스</a>
+  <a onclick="go('chars')">인물</a>
+  <a onclick="go('calendar')">학사일정</a>
+  <a onclick="go('system')">등급·재능</a>
+  <a onclick="go('factions')">세력</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="top">
+  <div class="hero-badge">WOLYEONG UNIVERSITY · EST. 300 YEARS AGO</div>
+  <h1>월영대학교</h1>
+  <div class="sub">요괴와 인간이 공존하는 대학</div>
+  <p>약 300년 전 구미호 백월영이 설립한 동방 최고의 대학.<br>요괴·귀신·신수·반요·그리고 소수의 인간이 함께 배우는 공간.</p>
+  <div class="hero-btns">
+    <button class="btn btn-primary" onclick="go('chars')">등장인물 보기</button>
+    <button class="btn btn-ghost" onclick="go('map')">캠퍼스 맵</button>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="sec-label">About</div>
+  <h2>월영대를 <span>소개합니다</span></h2>
+  <p class="sec-desc">장산 자락에 자리한 4년제 종합대학. 인간과 요괴가 같은 사회에서 자연스럽게 어울려 살아가는 세계의 상징.</p>
+  <div class="feature-strip">
+    <div class="feature-card">
+      <div class="icon">🌙</div>
+      <h3>설립 배경</h3>
+      <p>약 300년 전, 요괴와 인간의 충돌을 줄이기 위해 구미호 백월영이 설립.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🔥</div>
+      <h3>청염 · 진안</h3>
+      <p>봉인을 푸는 푸른 불꽃 청염, 인과율의 실을 보는 진안. 구미호 종족 중에서도 극소수만 발현.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🦊</div>
+      <h3>구미호 꼬리</h3>
+      <p>태어날 때부터 꼬리의 수가 정해지며, 격이 오를수록 꼬리가 늘어난다. 꼬리 하나의 차이만으로도 힘의 격차가 매우 크다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MAP -->
+<section id="map">
+  <div class="sec-label">Campus</div>
+  <h2>캠퍼스 <span>맵</span></h2>
+  <p class="sec-desc">부산 해운대구 장산(634m). 지도에서 장소를 누르거나 터치하면 상세 설명을 확인할 수 있습니다.</p>
+  <div class="map-wrap">
+    <div class="map-img-wrap" id="interactiveMap">
+      <img src="campus-map.png" alt="월영대학교 캠퍼스 맵" draggable="false">
+
+      <div class="map-hint" id="mapHint">
+        장소를 클릭하거나 터치해보세요
+      </div>
+
+      <!-- 실제 지도상의 장소 위치 -->
+      <button class="map-hotspot" data-key="gym"
+              style="left:38.60%; top:13.53%;" aria-label="산신 체육관">
+        <span>5</span>
+      </button>
+
+      <button class="map-hotspot" data-key="forbidden"
+              style="left:59.67%; top:13.65%;" aria-label="금기동">
+        <span>9</span>
+      </button>
+
+      <button class="map-hotspot" data-key="library"
+              style="left:41.87%; top:37.48%;" aria-label="중앙 도서관">
+        <span>2</span>
+      </button>
+
+      <button class="map-hotspot" data-key="pond"
+              style="left:60.93%; top:32.22%;" aria-label="저승 연못">
+        <span>3</span>
+      </button>
+
+      <button class="map-hotspot" data-key="student"
+              style="left:30.13%; top:49.58%;" aria-label="학생회관">
+        <span>7</span>
+      </button>
+
+      <button class="map-hotspot" data-key="dorm"
+              style="left:65.13%; top:49.10%;" aria-label="구미호 기숙사">
+        <span>4</span>
+      </button>
+
+      <button class="map-hotspot" data-key="civilian"
+              style="left:26.67%; top:66.23%;" aria-label="민간인동">
+        <span>6</span>
+      </button>
+
+      <button class="map-hotspot" data-key="gate"
+              style="left:45.40%; top:70.42%;" aria-label="정문">
+        <span>1</span>
+      </button>
+
+      <button class="map-hotspot" data-key="highschool"
+              style="left:59.00%; top:70.42%;" aria-label="월영고등학교">
+        <span>8</span>
+      </button>
+
+      <div class="map-floating-info" id="mapFloatingInfo">
+        <h4 id="floatingTitle"></h4>
+        <p id="floatingDesc"></p>
+      </div>
+    </div>
+    <div class="loc-btns">
+      <button class="loc-btn" data-location="gate" onclick="showLoc('gate',this)"><span class="num">1</span>정문</button>
+      <button class="loc-btn" data-location="library" onclick="showLoc('library',this)"><span class="num">2</span>중앙 도서관</button>
+      <button class="loc-btn" data-location="pond" onclick="showLoc('pond',this)"><span class="num">3</span>저승 연못</button>
+      <button class="loc-btn" data-location="dorm" onclick="showLoc('dorm',this)"><span class="num">4</span>구미호 기숙사</button>
+      <button class="loc-btn" data-location="gym" onclick="showLoc('gym',this)"><span class="num">5</span>산신 체육관</button>
+      <button class="loc-btn" data-location="civilian" onclick="showLoc('civilian',this)"><span class="num">6</span>민간인동</button>
+      <button class="loc-btn" data-location="student" onclick="showLoc('student',this)"><span class="num">7</span>학생회관</button>
+      <button class="loc-btn" data-location="highschool" onclick="showLoc('highschool',this)"><span class="num">8</span>월영고</button>
+      <button class="loc-btn" data-location="forbidden" onclick="showLoc('forbidden',this)"><span class="num">9</span>금기동</button>
+    </div>
+    <div class="map-detail" id="mapDetail">
+      <h3 id="locTitle">장소를 선택하세요</h3>
+      <p id="locDesc">번호 버튼을 터치하면 설명이 나타납니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CHARS -->
+<section id="chars">
+  <div class="sec-label">Characters</div>
+  <h2>등장 <span>인물</span></h2>
+  <p class="sec-desc">카드를 터치하면 상세 프로필을 볼 수 있습니다.</p>
+  <div class="char-group-title">◆ 학생</div>
+  <div class="student-filter" aria-label="학생 학년 필터">
+    <button class="year-filter active" data-year="all" onclick="filterStudents('all', this)">전체</button>
+    <button class="year-filter" data-year="1" onclick="filterStudents('1', this)">1학년</button>
+    <button class="year-filter" data-year="2" onclick="filterStudents('2', this)">2학년</button>
+    <button class="year-filter" data-year="3" onclick="filterStudents('3', this)">3학년</button>
+    <button class="year-filter" data-year="4" onclick="filterStudents('4', this)">4학년</button>
+  </div>
+  <div class="char-grid" id="charStudents"></div>
+  <div class="student-empty" id="studentEmpty" hidden>해당 학년의 학생이 없습니다.</div>
+  <div class="char-group-title">◆ 흑린회</div>
+  <div class="char-grid" id="charBlack"></div>
+  <div class="char-group-title">◆ 퇴마사</div>
+  <div class="char-grid" id="charExor"></div>
+  <div class="char-group-title">◆ 교직원 · 원로</div>
+  <div class="char-grid" id="charStaff"></div>
+</section>
+
+<!-- CALENDAR -->
+<section id="calendar">
+  <div class="sec-label">Schedule</div>
+  <h2>학사 <span>일정</span></h2>
+  <div class="cal-wrap">
+    <table class="cal-table">
+      <thead><tr><th>날짜</th><th>일정</th></tr></thead>
+      <tbody>
+        <tr><td>3월 18일</td><td>입학식 및 1학기 개강</td></tr>
+        <tr><td>3월 19일</td><td>신입생 오리엔테이션</td></tr>
+        <tr><td>5월 4~6일</td><td>월영 봄 축제</td></tr>
+        <tr><td>6월 15~19일</td><td>1학기 기말고사</td></tr>
+        <tr><td>6월 22일</td><td>1학기 종강</td></tr>
+        <tr><td>6월 23일~8월 31일</td><td>여름방학</td></tr>
+        <tr><td>9월 1일</td><td>2학기 개강</td></tr>
+        <tr><td>9월 14~18일</td><td>요괴 실기평가</td></tr>
+        <tr><td>10월 19~23일</td><td>2학기 중간고사</td></tr>
+        <tr><td>10월 30일~11월 1일</td><td>월영 요괴문화제</td></tr>
+        <tr><td>12월 14~18일</td><td>2학기 기말고사</td></tr>
+        <tr><td>12월 21일</td><td>2학기 종강</td></tr>
+        <tr><td>12월 22일~2월 19일</td><td>겨울방학</td></tr>
+        <tr><td>2월 20일</td><td>졸업식</td></tr>
+        <tr><td>2월 21일~3월 17일</td><td>봄방학 및 신학기 준비</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- SYSTEM -->
+<section id="system">
+  <div class="sec-label">System</div>
+  <h2>등급 · <span>재능</span></h2>
+
+  <h3 class="system-section-title">등급</h3>
+  <div class="feature-strip">
+    <div class="feature-card">
+      <h3>구미호 꼬리 등급</h3>
+      <div class="grade-list">
+        <span class="grade-badge">1~3미 하급</span>
+        <span class="grade-badge">4~6미 중급</span>
+        <span class="grade-badge">7미 상급</span>
+        <span class="grade-badge">8미 준신령</span>
+        <span class="grade-badge">9미 신령</span>
+      </div>
+    </div>
+    <div class="feature-card">
+      <h3>개별 요괴 등급</h3>
+      <div class="grade-list">
+        <span class="grade-badge">하급</span>
+        <span class="grade-badge">중급</span>
+        <span class="grade-badge">상급</span>
+        <span class="grade-badge">준신령급</span>
+        <span class="grade-badge">신령급</span>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="system-section-title" style="margin-top:1.5rem;">재능</h3>
+  <div class="talent-list">
+    <div class="talent-card">
+      <h3>카피</h3>
+      <p>한번 본 움직임이나 무술을 자신의 신체가 가능한 범위에서 실시간으로 체화하는 신이내린 재능.</p>
+    </div>
+    <div class="talent-card">
+      <h3>한정 카피</h3>
+      <p>한 가지 무술에만 한정적으로 카피가 가능. 범위는 좁지만 해당 무술의 완성도는 매우 높다.</p>
+    </div>
+    <div class="talent-card">
+      <h3>요력 운용</h3>
+      <p>극도의 집중 상태에 돌입하면 극소수만이 모든 것이 느려진 듯한 감각을 경험하며, 요력의 흐름을 읽고 기하급수적으로 성장하는 재능.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EVALUATION -->
+<section id="evaluation">
+  <div class="sec-label">Evaluation</div>
+  <h2>평가 <span>체계</span></h2>
+  <div class="feature-strip">
+    <div class="feature-card">
+      <p>중간고사 · 기말고사 · 요력/술법평가 · 매주 수요일 1VS1 대련</p>
+    </div>
+  </div>
+</section>
+
+<!-- FACTIONS -->
+<section id="factions">
+  <div class="sec-label">Factions</div>
+  <h2>주요 <span>세력</span></h2>
+  <div class="faction-grid">
+    <div class="faction-card">
+      <h3>흑린회 (黑鱗會)</h3>
+      <p>신생 세력. 서면 지하상가 거점. “요괴는 드러내고 지배해야 한다”는 급진 이념.</p>
+      <ul>
+        <li>진서율 — 수장</li>
+        <li>하윤슬 — 측근</li>
+        <li>도강혁 — 행동대장</li>
+        <li>백시온 — 스파이 / 4학년</li>
+      </ul>
+    </div>
+    <div class="faction-card">
+      <h3>퇴마사 협회</h3>
+      <p>월영대와 협력 관계. 오래전 인간과 요괴와의 전쟁으로 인한 협정 이후 선을 지키며 공존.</p>
+      <ul>
+        <li>강이현 — 협회 총감</li>
+        <li>윤채아 — 정보·분석</li>
+        <li>백도훈 — 1학년 / 현장 대응</li>
+      </ul>
+    </div>
+    <div class="faction-card">
+      <h3>주요 교직원</h3>
+      <ul>
+        <li>유월영 — 교장 / 이사장</li>
+        <li>장현석 — 교감</li>
+        <li>윤재호 — 체육 교수</li>
+        <li>박태성 — 부 체육교수</li>
+        <li>최현우 — 야간 사서</li>
+        <li>임정 — 동해 용왕</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">월영대학교</div>
+    <p class="footer-desc">요괴와 인간이 공존하는 대학</p>
+    <div class="footer-links">
+      <a onclick="go('about')">소개</a>
+      <a onclick="go('map')">캠퍼스</a>
+      <a onclick="go('chars')">인물</a>
+      <a onclick="go('calendar')">학사일정</a>
+      <a onclick="go('factions')">세력</a>
+    </div>
+    <div class="footer-copy">© Wolyeong University World Archive</div>
+  </div>
+</footer>
+
+<div class="modal-overlay" id="charModal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="mName"></h3>
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-img"><img id="mImg" src="" alt=""></div>
+      <div class="modal-desc" id="mDesc"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const locations = {
+  gate: { title: '① 정문', desc: '대학교 정문. 일반인 출입 가능 구역.' },
+  library: { title: '② 중앙 도서관', desc: '장산 자락의 오래된 나무들 사이. 밤이 되면 책이 속삭인다.' },
+  pond: { title: '③ 저승 연못', desc: '산 중턱의 작은 연못. 물귀신과 인어들이 모인다.' },
+  dorm: { title: '④ 구미호 기숙사', desc: '달이 가장 잘 보이는 동쪽 능선 쪽.' },
+  gym: { title: '⑤ 산신 체육관', desc: '장산의 기운을 직접 받는 훈련장. 매주 수요일 1VS1 대련.' },
+  civilian: { title: '⑥ 민간인동', desc: '일반인 출입 구역. 행정·강의동 밀집.' },
+  student: { title: '⑦ 학생회관 & 구내식당', desc: '뷔페형 구내식당과 편의시설.' },
+  highschool: { title: '⑧ 월영고등학교', desc: '대학교 부지 내 별도 캠퍼스.' },
+  forbidden: { title: '⑨ 금기동', desc: '산 깊숙한 곳. 일반 학생 출입 금지.' }
+};
+function showLoc(key, el) {
+  document.querySelectorAll('.loc-btn').forEach(b => b.classList.remove('active'));
+  if (el) el.classList.add('active');
+  const loc = locations[key];
+  document.getElementById('locTitle').textContent = loc.title;
+  document.getElementById('locDesc').textContent = loc.desc;
+  const d = document.getElementById('mapDetail');
+  d.classList.add('show');
+  setTimeout(() => d.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 40);
+}
+
+/* =========================
+   INTERACTIVE CAMPUS MAP
+========================= */
+
+const interactiveMap = document.getElementById('interactiveMap');
+const mapHint = document.getElementById('mapHint');
+const floatingInfo = document.getElementById('mapFloatingInfo');
+const floatingTitle = document.getElementById('floatingTitle');
+const floatingDesc = document.getElementById('floatingDesc');
+const hotspots = [...document.querySelectorAll('.map-hotspot')];
+
+let selectedLocation = null;
+let hasInteractedWithMap = false;
+
+function getMapPointFromPercent(hotspot) {
+  const rect = interactiveMap.getBoundingClientRect();
+
+  return {
+    x: rect.left + (parseFloat(hotspot.style.left) / 100) * rect.width,
+    y: rect.top + (parseFloat(hotspot.style.top) / 100) * rect.height
+  };
+}
+
+function findNearestLocation(clientX, clientY) {
+  let nearest = null;
+  let nearestDistance = Infinity;
+
+  hotspots.forEach(hotspot => {
+    const point = getMapPointFromPercent(hotspot);
+    const distance = Math.hypot(clientX - point.x, clientY - point.y);
+
+    if (distance < nearestDistance) {
+      nearestDistance = distance;
+      nearest = hotspot;
+    }
+  });
+
+  /* 장소 인식 범위 */
+  return nearestDistance < 125 ? nearest : null;
+}
+
+function clearNearStates() {
+  hotspots.forEach(hotspot => {
+    if (!hotspot.classList.contains('active')) {
+      hotspot.classList.remove('near');
+    }
+  });
+}
+
+function showFloatingLocation(hotspot) {
+  clearNearStates();
+
+  if (!hotspot) {
+    if (!selectedLocation) {
+      floatingInfo.classList.remove('show');
+    }
+    return;
+  }
+
+  const key = hotspot.dataset.key;
+  const loc = locations[key];
+  if (!loc) return;
+
+  hotspot.classList.add('near');
+  floatingTitle.textContent = loc.title;
+  floatingDesc.textContent = loc.desc;
+  floatingInfo.classList.add('show');
+
+  positionFloatingInfo(hotspot);
+}
+
+function positionFloatingInfo(hotspot) {
+  const mapRect = interactiveMap.getBoundingClientRect();
+
+  const x = (parseFloat(hotspot.style.left) / 100) * mapRect.width;
+  const y = (parseFloat(hotspot.style.top) / 100) * mapRect.height;
+
+  const infoWidth = floatingInfo.offsetWidth || 220;
+  const infoHeight = floatingInfo.offsetHeight || 80;
+
+  let left = x + 24;
+  let top = y - 20;
+
+  if (left + infoWidth > mapRect.width - 8) {
+    left = x - infoWidth - 24;
+  }
+
+  if (left < 8) {
+    left = 8;
+  }
+
+  if (top + infoHeight > mapRect.height - 8) {
+    top = mapRect.height - infoHeight - 8;
+  }
+
+  if (top < 8) {
+    top = 8;
+  }
+
+  floatingInfo.style.left = `${left}px`;
+  floatingInfo.style.top = `${top}px`;
+}
+
+function updateMapView(clientX, clientY) {
+  const rect = interactiveMap.getBoundingClientRect();
+
+  const x = Math.max(0, Math.min(rect.width, clientX - rect.left));
+  const y = Math.max(0, Math.min(rect.height, clientY - rect.top));
+
+  if (!hasInteractedWithMap) {
+    hasInteractedWithMap = true;
+    mapHint.classList.add('hide');
+  }
+
+  const nearest = findNearestLocation(clientX, clientY);
+  showFloatingLocation(nearest);
+}
+
+/* PC: 마우스 이동 */
+interactiveMap.addEventListener('mousemove', event => {
+  updateMapView(event.clientX, event.clientY);
+});
+
+interactiveMap.addEventListener('mouseleave', () => {
+  if (!selectedLocation) {
+    floatingInfo.classList.remove('show');
+    clearNearStates();
+  }
+});
+
+/* 모바일: 손가락 이동 */
+function handleMapTouch(event) {
+  const touch = event.touches[0];
+  if (!touch) return;
+  updateMapView(touch.clientX, touch.clientY);
+}
+
+interactiveMap.addEventListener('touchstart', handleMapTouch, { passive: true });
+interactiveMap.addEventListener('touchmove', handleMapTouch, { passive: true });
+
+/* 장소 핫스팟 클릭/터치 */
+hotspots.forEach(hotspot => {
+  hotspot.addEventListener('click', event => {
+    event.stopPropagation();
+
+    hotspots.forEach(h => h.classList.remove('active'));
+    hotspot.classList.add('active');
+
+    selectedLocation = hotspot.dataset.key;
+    showFloatingLocation(hotspot);
+
+    const button = document.querySelector(
+      `.loc-btn[data-location="${selectedLocation}"]`
+    );
+
+    showLoc(selectedLocation, button || null);
+  });
+});
+
+/* 지도에서 장소가 아닌 곳을 클릭/터치하면 가장 가까운 장소 선택 */
+interactiveMap.addEventListener('click', event => {
+  if (event.target.closest('.map-hotspot')) return;
+
+  const nearest = findNearestLocation(event.clientX, event.clientY);
+  if (!nearest) return;
+
+  hotspots.forEach(h => h.classList.remove('active'));
+  nearest.classList.add('active');
+
+  selectedLocation = nearest.dataset.key;
+  showFloatingLocation(nearest);
+
+  const button = document.querySelector(
+    `.loc-btn[data-location="${selectedLocation}"]`
+  );
+
+  showLoc(selectedLocation, button || null);
+});
+
+/* 기존 1~9 버튼과 지도 핫스팟을 동기화 */
+const originalShowLoc = showLoc;
+
+window.showLoc = function(key, el) {
+  originalShowLoc(key, el);
+
+  hotspots.forEach(h => {
+    h.classList.toggle('active', h.dataset.key === key);
+  });
+
+  selectedLocation = key;
+
+  const hotspot = hotspots.find(h => h.dataset.key === key);
+  if (hotspot) {
+    floatingTitle.textContent = locations[key].title;
+    floatingDesc.textContent = locations[key].desc;
+    floatingInfo.classList.add('show');
+    positionFloatingInfo(hotspot);
+  }
+};
+
+const characters = {
+  students: [
+    { id:'seoyeonhwa', name:'서연화', species:'구미호 (6미)', grade:'상급', year:'2학년 · 21세', img:'seoyeonhwa.png', tags:['진안 보유','전투력 2위'], desc:'다정하며 허당끼가 있고 소유욕이 강하다. 애교가 많으며 후배들을 먼저 챙긴다.' },
+    { id:'hanjaehyun', name:'한재현', species:'호랑이 요괴', grade:'상급', year:'3학년 · 23세', img:'hanjaehyun.png', tags:['학생회장'], desc:'무뚝뚝하고 자존심이 강하지만 은근히 챙긴다.' },
+    { id:'parkdojin', name:'박도진', species:'도깨비', grade:'상급', year:'1학년 · 20세', img:'parkdojin.png', tags:['싸움·요력 천재'], desc:'호탕하고 진지하며 의리남. 비상한 머리의 싸움·요력운용의 천재.' },
+    { id:'choiseorin', name:'최서린', species:'처녀귀신', grade:'하급', year:'1학년 · 20세', img:'choiseorin.png', tags:[], desc:'조용하고 슬픔이 느껴지며 호기심이 많다.' },
+    { id:'imdoha', name:'임도하', species:'청룡', grade:'상급', year:'2학년 · 21세', img:'imdoha.png', tags:['전투력 1위','용왕의 아들'], desc:'거만하고 자존심이 세며 외로움을 느낀다.' },
+    { id:'jeonghaon', name:'정하온', species:'해태', grade:'중급', year:'3학년 · 22세', img:'jeonghaon.png', tags:[], desc:'정의롭고 책임감이 강하며 든든하다.' },
+    { id:'oseola', name:'오설아', species:'물귀신', grade:'하급', year:'3학년 · 22세', img:'oseola.png', tags:[], desc:'무표정으로 차가워 보이지만 속은 여리다.' },
+    { id:'shinwoojin', name:'신우진', species:'강시', grade:'중급', year:'2학년 · 21세', img:'shinwoojin.png', tags:[], desc:'직설적이고 감정 표현이 서툴며 움직임이 느리다.' },
+    { id:'sonyucheon', name:'손유천', species:'원숭이 요괴', grade:'준신령급', year:'4학년 · 23세', img:'sonyucheon.png', tags:['총학생회장','교내 전투력 1위'], desc:'호승심이 강하고 자신감이 넘친다. 손오공의 손자.' },
+    { id:'kimyujin', name:'김유진', species:'무녀', grade:'—', year:'1학년 · 20세', img:'kimyujin.png', tags:['인간'], desc:'긍정적이고 호기심이 많으며 활발하다. 요괴 저항력과 적응력이 뛰어나다.' },
+    { id:'baekdohun', name:'백도훈', species:'인간 퇴마사', grade:'—', year:'1학년 · 20세', img:'baekdohun.png', tags:['퇴마사','현장 대응'], desc:'호탕하고 단순하며 의리가 있다. 박도진과 친구처럼 지낸다.' },
+    { id:'baeksion', name:'백시온', species:'타락 해태', grade:'상급', year:'4학년 · 23세', img:'baeksion.png', tags:['스파이','흑린회 잠입'], desc:'이율배반적이고 냉소적이며 정의를 왜곡한다. 학생 신분으로 학교에 잠입해 활동하고 있다.' }
+  ],
+  black: [
+    { id:'jinseoyul', name:'진서율', species:'흑구미호 (7미)', grade:'상급', year:'28세', img:'jinseoyul.png', tags:['흑린회 수장','진안 보유'], desc:'냉정하고 오만하며 목적 지향적이다.' },
+    { id:'hayunseul', name:'하윤슬', species:'타락 구미호 (5미)', grade:'중급', year:'24세', img:'hayunseul.png', tags:['진서율 측근'], desc:'교활하고 질투가 많으며 능글맞다.' },
+    { id:'doganghyeok', name:'도강혁', species:'흑도깨비', grade:'상급', year:'26세', img:'doganghyeok.png', tags:['행동대장'], desc:'난폭하고 충동적이며 힘만 믿는다.' },
+    { id:'baeksion', name:'백시온', species:'타락 해태', grade:'상급', year:'4학년 · 23세', img:'baeksion.png', tags:['스파이','흑린회 잠입'], desc:'이율배반적이고 냉소적이며 정의를 왜곡한다. 학생 신분으로 학교에 잠입해 활동하고 있다.' },
+  ],
+  exor: [
+    { id:'gangihyeon', name:'강이현', species:'인간 퇴마사', grade:'—', year:'36세', img:'gangihyeon.png', tags:['협회 총감'], desc:'냉정하고 책임감이 강하며 직설적이다.' },
+    { id:'yunchaea', name:'윤채아', species:'인간 퇴마사', grade:'—', year:'25세', img:'yunchaea.png', tags:['정보·분석'], desc:'침착하고 분석적이며 약간 냉소적이다.' },
+    { id:'baekdohun', name:'백도훈', species:'인간 퇴마사', grade:'—', year:'1학년 · 20세', img:'baekdohun.png', tags:['월영대 1학년','현장 대응'], desc:'호탕하고 단순하며 의리가 있다. 월영대 입학생이며 박도진과 친구.' }
+  ],
+  staff: [
+    { id:'yuwolyeong', name:'유월영', species:'구미호', grade:'신령급', year:'1,100세', img:'yuwolyeong.png', tags:['교장','이사장'], desc:'여유롭고 장난기가 있으며 고풍스럽다. 서연화의 어머니.' },
+    { id:'yunjaeho', name:'윤재호', species:'호랑이 산신령', grade:'신령급', year:'650세', img:'yunjaeho.png', tags:['체육 교수'], desc:'엄격하지만 속정이 깊고 직설적이다.' },
+    { id:'janghyeonseok', name:'장현석', species:'장산범', grade:'상급', year:'784세', img:'janghyeonseok.png', tags:['교감'], desc:'다정하고 차분하며 학생 안전을 최우선으로 한다.' },
+    { id:'choihyeonu', name:'최현우', species:'지귀', grade:'중급', year:'340세', img:'choihyeonu.png', tags:['야간 사서'], desc:'조용하고 지식욕이 강하며 차분하다.' },
+    { id:'imjeong', name:'임정', species:'청룡', grade:'신령급', year:'—', img:'imjeong.png', tags:['동해 용왕'], desc:'냉정하고 위엄 있으며 자존심이 세지만 다정한 면도 있다. 임도하의 아버지.' },
+    { id:'parktaeseong', name:'박태성', species:'금오 도깨비', grade:'신령급', year:'1,089세', img:'parktaeseong.png', tags:['부 체육교수'], desc:'차분하고 침착하며 다정하다. 박도진의 아버지.' }
+  ]
+};
+function renderGroup(id, list) {
+  document.getElementById(id).innerHTML = list.map(c => `
+    <div class="char-card" onclick="openChar('${c.id}')">
+      <img src="${c.img}" alt="${c.name}" loading="lazy">
+      <div class="char-info">
+        <div class="name">${c.name}</div>
+        <div class="species">${c.species}</div>
+        <span class="grade">${c.grade}</span>
+      </div>
+    </div>
+  `).join('');
+}
+function allChars() {
+  return [...characters.students, ...characters.black, ...characters.exor, ...characters.staff];
+}
+function filterStudents(year, button) {
+  document.querySelectorAll('.year-filter').forEach(b => b.classList.remove('active'));
+  if (button) button.classList.add('active');
+  const list = year === 'all'
+    ? characters.students
+    : characters.students.filter(c => new RegExp('(^|\\D)' + year + '학년').test(c.year));
+  renderGroup('charStudents', list);
+  document.getElementById('studentEmpty').hidden = list.length !== 0;
+}
+function openChar(id) {
+  const c = allChars().find(x => x.id === id);
+  if (!c) return;
+  document.getElementById('mName').textContent = c.name;
+  document.getElementById('mImg').src = c.img;
+  document.getElementById('mImg').alt = c.name;
+  let tags = `<span class="tag">${c.species}</span><span class="tag">${c.grade}</span><span class="tag">${c.year}</span>`;
+  if (c.tags && c.tags.length) tags += c.tags.map(t => `<span class="tag">${t}</span>`).join('');
+  document.getElementById('mDesc').innerHTML = tags + `<p>${c.desc}</p>`;
+  document.getElementById('charModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('charModal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+function toggleMenu() {
+  document.getElementById('menuBtn').classList.toggle('open');
+  document.getElementById('navMobile').classList.toggle('show');
+}
+function go(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+  document.getElementById('menuBtn').classList.remove('open');
+  document.getElementById('navMobile').classList.remove('show');
+}
+filterStudents('all', document.querySelector('.year-filter.active'));
+renderGroup('charBlack', characters.black);
+renderGroup('charExor', characters.exor);
+renderGroup('charStaff', characters.staff);
+</script>
+</body>
+</html>
